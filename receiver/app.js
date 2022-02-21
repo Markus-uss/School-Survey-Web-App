@@ -60,6 +60,20 @@ app.post('/add', function(req, res) {
                 console.log("No records inserted");
             } else {
                 console.log("1 record inserted");
+
+                let requestBody2 = {
+                    method: "POST",
+                    uri: 'http://localhost:8110/compute',
+                    headers: {'content-type': 'application/json'}
+                };
+            
+                request(requestBody2, function (error, response, body) {
+                    if (response.statusCode == 201) {
+                        console.log("Stats updated")
+                    } else {
+                        console.log("Stats not updated.")
+                    }
+                })
             };
         });
         res.render('index')
