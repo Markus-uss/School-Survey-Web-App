@@ -2,6 +2,7 @@ const port = 8100
 const bodyParser = require('body-parser');
 const request = require('request-promise');
 const mysql = require('mysql');
+var MongoClient = require('mongodb').MongoClient;
 var express = require('express'),
 app = express();
 
@@ -30,7 +31,18 @@ app.post('/home', (req, res) => {
     requestBody.json['password'] = info.password
     request(requestBody, function (error, response, body) {
         if (response.statusCode == 201) {
-            res.render('index')
+            var url = "mongodb://localhost:27017/";
+
+            MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("school_info");
+            dbo.collection("computed_stats").findOne({}, function(err, result) {
+                if (err) throw err;
+                console.log(result.name);
+                res.send(result)
+                db.close();
+                });
+            });
         } else {
             res.send("<h1>Validation Failed.</h1><a href='/'>Retry</a>")
         }
