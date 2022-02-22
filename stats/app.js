@@ -31,7 +31,7 @@ app.post('/home', (req, res) => {
     requestBody.json['password'] = info.password
     request(requestBody, function (error, response, body) {
         if (response.statusCode == 201) {
-            var url = "mongodb://moe:123@mongo_db:27017/";
+            var url = "mongodb://moe:123@mongo_db:27017/?authSource=admin";
 
             MongoClient.connect(url, function(err, db) {
             if (err) throw err;
