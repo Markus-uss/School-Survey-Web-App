@@ -68,6 +68,7 @@ app.post('/add', function(req, res) {
                 };
             
                 request(requestBody2, function (error, response, body) {
+                    console.log(response)
                     if (response.statusCode == 201) {
                         console.log("Stats updated")
                     } else {
