@@ -48,10 +48,13 @@ if __name__ == '__main__':
         lowest_grade = min(grades, key=grades.get)
 
         myclient = pymongo.MongoClient("mongodb://moe:123@mongo_db:27017/?authSource=admin")
+        print(f"\n!!!Connected!!!\n")
         mydb = myclient["school_info"]
         mycol = mydb["computed_stats"]
 
         mydict = { "Most Favorite Subject": highest_count, "Least Favorite Subject": lowest_count, "Highest Grade Count": highest_grade, "Least Grade Count": lowest_grade }
+
+        print(f"\n\n{mydict}\n\n")
 
         x = mycol.insert_one(mydict)
 
