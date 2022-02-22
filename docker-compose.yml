@@ -41,9 +41,17 @@ services:
         protocol: tcp
         mode: host
     
+  # process:
+  #   container_name: processor
+  #   build: ./processor
+  #   hostname: process_service
+  #   depends_on: 
+  #     - db1
+  #     - db2
+
   process:
     container_name: processor
-    build: ./processor
+    build: ./process
     hostname: process_service
     depends_on: 
       - db1

@@ -1,0 +1,7 @@
+connexion
+sqlalchemy
+connexion[swagger-ui]
+Flask
+mysql-connector
+mysql-connector-python
+pymongo

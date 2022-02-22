@@ -36,10 +36,18 @@ app.post('/home', (req, res) => {
             MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db("school_info");
-            dbo.collection("computed_stats").findOne({}, function(err, result) {
+            // dbo.collection("computed_stats").findOne({}, function(err, result) {
+            //     if (err) throw err;
+            //     console.log(result.name);
+            //     res.send(result)
+            //     db.close();
+            //     });
+            // });
+            var sort_query = { _id: -1 }
+            dbo.collection("computed_stats").find().sort(sort_query).toArray(function(err, result) {
                 if (err) throw err;
-                console.log(result.name);
-                res.send(result)
+                console.log(result[0]);
+                res.send(`<h2>${JSON.stringify(result[0])}</h2>`)
                 db.close();
                 });
             });

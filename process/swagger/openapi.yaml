@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  description: This API receives reading events from mobile applications.
+  version: "1.0.0"
+  title: Reservation API
+  contact:
+    email: mlu69@my.bcit.ca
+tags:
+  - name: company-devices
+    description: Operations available to system users.
+paths:
+  /compute:
+    post:
+      tags:
+        - company-devices
+      summary: authenication service
+      operationId: app.compute
+      description: authenticates user
+      responses:
+        '201':
+          description: room updated to system
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationObject'
+        description: Room object to update
+
+      
+components:
+  schemas:
+    AuthenticationObject:
+      type: object
+      properties:
+        username:
+          type: string
+          example: A1023

@@ -64,7 +64,10 @@ app.post('/add', function(req, res) {
                 let requestBody2 = {
                     method: "POST",
                     uri: 'http://process_service:8110/compute',
-                    headers: {'content-type': 'application/json'}
+                    headers: {'content-type': 'application/json'},
+                    json: {
+                        placeholder: 'im desperate'
+                    }
                 };
             
                 request(requestBody2, function (error, response, body) {
