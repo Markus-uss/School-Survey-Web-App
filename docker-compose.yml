@@ -1,0 +1,86 @@
+version: '2'
+
+services: 
+  app:
+    container_name: receiver-app
+    build: ./receiver
+    hostname: receiver_app
+    depends_on:
+      - db1
+      - auth
+      - process
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
+
+  
+  auth:
+    container_name: auth-service
+    build: ./auth
+    hostname: auth_service
+
+    ports:
+      - target: 8090
+        published: 8090
+        protocol: tcp
+        mode: host
+
+  stat:
+    container_name: stats
+    build: ./stats
+    hostname: stats_app
+    depends_on:
+      - auth
+      - db2
+
+    ports: 
+      - target: 8100
+        published: 8100
+        protocol: tcp
+        mode: host
+    
+  process:
+    container_name: processor
+    build: ./processor
+    hostname: process_service
+    depends_on: 
+      - db1
+      - db2
+
+    ports: 
+      - target: 8110
+        published: 8110
+        protocol: tcp
+        mode: host
+  
+  db1:
+    image: mysql
+    restart: always
+    container_name: mysql-db
+    hostname: mysql_db
+    ports:
+    - 3306:3306
+    environment:
+      MYSQL_DATABASE: school
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: joe
+      MYSQL_PASSWORD: 123
+    volumes:
+    - ./dump:/docker-entrypoint-initdb.d
+
+
+  db2:
+    image: mongo:latest
+    container_name: mongodb
+    hostname: mongo_db
+    restart: always
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: moe
+        MONGO_INITDB_ROOT_PASSWORD: 123
+        MONGO_INITDB_DATABASE: computed_stats
+    ports:
+        - 27017:27017
+    volumes:
+        - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
