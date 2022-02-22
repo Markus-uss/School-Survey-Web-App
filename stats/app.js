@@ -17,7 +17,7 @@ app.get('/', function(req, res) {
 app.post('/home', (req, res) => {
     let requestBody = {
         method: "POST",
-        uri: 'http://localhost:8090/auth',
+        uri: 'http://auth_service:8090/auth',
         headers: {'content-type': 'application/json'},
         json: {
             username: 'placeholder',
@@ -31,7 +31,7 @@ app.post('/home', (req, res) => {
     requestBody.json['password'] = info.password
     request(requestBody, function (error, response, body) {
         if (response.statusCode == 201) {
-            var url = "mongodb://localhost:27017/";
+            var url = "mongodb://mongo_db:27017/";
 
             MongoClient.connect(url, function(err, db) {
             if (err) throw err;

@@ -14,7 +14,7 @@ if __name__ == '__main__':
     @app.route('/compute', methods = ['POST'])
     def authn():
         mydb = mysql.connector.connect(
-        host="localhost",
+        host="mysql_db",
         user="joe",
         password="123",
         database="school"
@@ -47,7 +47,7 @@ if __name__ == '__main__':
         highest_grade = max(grades, key=grades.get)
         lowest_grade = min(grades, key=grades.get)
 
-        myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+        myclient = pymongo.MongoClient("mongodb://mongo_db:27017/")
         mydb = myclient["school_info"]
         mycol = mydb["computed_stats"]
 

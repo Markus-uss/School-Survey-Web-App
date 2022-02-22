@@ -16,7 +16,7 @@ app.get('/', function(req, res) {
 app.post('/home', (req, res) => {
     let requestBody = {
         method: "POST",
-        uri: 'http://localhost:8090/auth',
+        uri: 'http://auth_service:8090/auth',
         headers: {'content-type': 'application/json'},
         json: {
             username: 'placeholder',
@@ -44,7 +44,7 @@ app.post('/add', function(req, res) {
     let favSubject = req.body.subject
 
     var con = mysql.createConnection({
-        host: "localhost",
+        host: "mysql_db",
         user: "joe",
         password: "123",
         database: "school"
@@ -63,7 +63,7 @@ app.post('/add', function(req, res) {
 
                 let requestBody2 = {
                     method: "POST",
-                    uri: 'http://localhost:8110/compute',
+                    uri: 'http://process_service:8110/compute',
                     headers: {'content-type': 'application/json'}
                 };
             
