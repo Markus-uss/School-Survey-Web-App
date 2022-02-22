@@ -1,0 +1,3 @@
+connexion
+sqlalchemy
+connexion[swagger-ui]
