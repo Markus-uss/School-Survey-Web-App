@@ -47,7 +47,7 @@ if __name__ == '__main__':
         highest_grade = max(grades, key=grades.get)
         lowest_grade = min(grades, key=grades.get)
 
-        myclient = pymongo.MongoClient("mongodb://moe:123@mongo_db:27017/")
+        myclient = pymongo.MongoClient("mongodb://moe:123@mongo_db:27017/?authSource=admin")
         mydb = myclient["school_info"]
         mycol = mydb["computed_stats"]
 
