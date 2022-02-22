@@ -1,3 +1,4 @@
+
 db.createUser(
     {
         user: "moe",
@@ -5,8 +6,22 @@ db.createUser(
         roles: [
             {
                 role: "readWrite",
-                db: "computed_stats"
+                db: "admin"
             }
         ]
     }
 );
+
+
+
+db = db.getSiblingDB('school_info');
+
+db.createCollection('computed_stats');
+
+db.computed_stats.insertOne([
+ {
+    "Most Favorite Subject": "N/A",
+    "Least Favorite Subject": "N/A",
+    "Highest Grade Count": "N/A",
+    "Least Grade Count": "N/A"
+  }]);
