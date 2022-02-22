@@ -74,7 +74,7 @@ services:
 
   db2:
     image: mongo:latest
-    container_name: mongodb
+    container_name: mongo_db
     hostname: mongo_db
     restart: always
     environment:
@@ -84,4 +84,4 @@ services:
     ports:
         - 27017:27017
     volumes:
-        - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+        - ./mongo-init:/docker-entrypoint-initdb.d/mongo-init.js:ro
